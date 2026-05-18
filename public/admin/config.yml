@@ -2,8 +2,7 @@ backend:
   name: github
   repo: quietmothartz-dev/quiet-moth-artz-site
   branch: main
-  # Add this after deploying Sveltia CMS Authenticator:
-  # base_url: https://YOUR-SVELTIA-AUTH-WORKER.workers.dev
+  base_url: https://sveltia-cms-auth.quietmothartz.workers.dev
 
 media_folder: public/uploads
 public_folder: /uploads

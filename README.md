@@ -140,10 +140,10 @@ npx wrangler deploy --dry-run
    You can also use the repo's Deploy to Cloudflare Workers button instead.
 
 4. After deployment, copy the Worker URL from Cloudflare.
-   It will look like:
+   Deployed Worker URL for this project:
 
    ```text
-   https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev
+   https://sveltia-cms-auth.quietmothartz.workers.dev
    ```
 
 5. Register a new GitHub OAuth App:
@@ -152,8 +152,8 @@ npx wrangler deploy --dry-run
 6. Use these GitHub OAuth App values:
 
    - Application name: `Quiet Moth Artz CMS Auth`
-   - Homepage URL: your Worker URL, for example `https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev`
-   - Authorization callback URL: your Worker URL plus `/callback`, for example `https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev/callback`
+   - Homepage URL: `https://sveltia-cms-auth.quietmothartz.workers.dev`
+   - Authorization callback URL: `https://sveltia-cms-auth.quietmothartz.workers.dev/callback`
 
 7. After creating the GitHub OAuth App, copy:
 
@@ -184,7 +184,7 @@ npx wrangler deploy --dry-run
      name: github
      repo: quietmothartz-dev/quiet-moth-artz-site
      branch: main
-     base_url: https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev
+     base_url: https://sveltia-cms-auth.quietmothartz.workers.dev
    ```
 
 11. Commit and push that config change to GitHub.
