@@ -1,0 +1,178 @@
+backend:
+  name: github
+  repo: quietmothartz-dev/quiet-moth-artz-site
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+publish_mode: simple
+
+collections:
+  - name: website_content
+    label: Website Content
+    files:
+      - name: site_content
+        label: Edit Quiet Moth Artz Site
+        file: src/content/siteContent.json
+        format: json
+        fields:
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: SEO Title, name: title, widget: string }
+              - { label: Meta Description, name: description, widget: text }
+              - { label: Website URL, name: url, widget: string }
+
+          - label: Site Settings
+            name: site
+            widget: object
+            fields:
+              - { label: Site Name, name: name, widget: string }
+              - { label: Brand Mark Letter, name: brandMark, widget: string }
+              - { label: Business Tagline, name: tagline, widget: string }
+              - { label: Email Address, name: email, widget: string }
+              - label: Social Links
+                name: socialLinks
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: Link Label, name: label, widget: string }
+                  - { label: Link URL, name: url, widget: string }
+
+          - label: Navigation Labels
+            name: navigation
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Section Link, name: href, widget: string }
+
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Hero Headline, name: headline, widget: text }
+              - { label: Hero Subheadline, name: subheadline, widget: text }
+              - label: Hero Buttons
+                name: buttons
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: Button Label, name: label, widget: string }
+                  - { label: Button Link, name: href, widget: string }
+                  - label: Button Style
+                    name: style
+                    widget: select
+                    options: ["primary", "secondary", "ghost"]
+              - label: Hero Visual Labels
+                name: visualLabels
+                widget: list
+                field: { label: Label, name: label, widget: string }
+
+          - label: Services
+            name: services
+            widget: object
+            fields:
+              - { label: Section Title, name: title, widget: string }
+              - { label: Section Intro, name: intro, widget: text }
+              - label: Service Cards
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Service Title, name: title, widget: string }
+                  - { label: Service Description, name: description, widget: text }
+
+          - label: Portfolio
+            name: portfolio
+            widget: object
+            fields:
+              - { label: Section Title, name: title, widget: string }
+              - { label: Section Intro, name: intro, widget: text }
+              - { label: Placeholder Link Text, name: placeholderText, widget: string }
+              - label: Portfolio Cards
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Project Title, name: title, widget: string }
+                  - { label: Project Description, name: description, widget: text }
+                  - { label: Project Label, name: label, widget: string }
+                  - { label: Project Image, name: image, widget: image, required: false }
+
+          - label: Hook Generator
+            name: hookGenerator
+            widget: object
+            fields:
+              - { label: Section Title, name: title, widget: string }
+              - { label: Promo Copy, name: promoCopy, widget: text }
+              - { label: CTA Copy, name: ctaCopy, widget: text }
+              - { label: Input Label, name: inputLabel, widget: string }
+              - { label: Input Placeholder, name: inputPlaceholder, widget: string }
+              - { label: Style Dropdown Label, name: styleLabel, widget: string }
+              - { label: Generate Button Text, name: generateButton, widget: string }
+              - { label: Copy Button Text, name: copyButton, widget: string }
+              - { label: Copied Button Text, name: copiedButton, widget: string }
+              - { label: Generate Again Button Text, name: againButton, widget: string }
+
+          - label: Website Packages
+            name: packages
+            widget: object
+            fields:
+              - { label: Section Title, name: title, widget: string }
+              - { label: Section Intro, name: intro, widget: text }
+              - { label: Intro Client Note, name: note, widget: string }
+              - label: Package Cards
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Package Title, name: title, widget: string }
+                  - { label: Package Description, name: description, widget: text }
+                  - label: Included Items
+                    name: includes
+                    widget: list
+                    field: { label: Included Item, name: item, widget: string }
+                  - { label: Price Text, name: price, widget: string }
+
+          - label: Why Work With Me
+            name: whyWorkWithMe
+            widget: object
+            fields:
+              - { label: Section Title, name: title, widget: string }
+              - { label: Paragraph, name: paragraph, widget: text }
+              - label: Checklist
+                name: checklist
+                widget: list
+                field: { label: Checklist Item, name: item, widget: string }
+
+          - label: Contact
+            name: contact
+            widget: object
+            fields:
+              - { label: Section Title, name: title, widget: string }
+              - { label: Contact Copy, name: copy, widget: text }
+              - { label: Email Button Text, name: emailButton, widget: string }
+              - { label: Submit Button Text, name: submitButton, widget: string }
+              - { label: Project Details Placeholder, name: detailsPlaceholder, widget: text }
+              - label: What Do You Need Options
+                name: needOptions
+                widget: list
+                field: { label: Option, name: option, widget: string }
+              - label: Budget Range Options
+                name: budgetOptions
+                widget: list
+                field: { label: Option, name: option, widget: string }
+              - label: Timeline Options
+                name: timelineOptions
+                widget: list
+                field: { label: Option, name: option, widget: string }
+
+          - label: Footer
+            name: footer
+            widget: object
+            fields:
+              - { label: Footer Description, name: description, widget: text }
+              - { label: Copyright Text, name: copyright, widget: string }

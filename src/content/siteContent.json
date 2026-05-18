@@ -1,0 +1,202 @@
+{
+  "seo": {
+    "title": "Quiet Moth Artz | Creative Consultant, Website Designer, Graphic Designer & Songwriter",
+    "description": "Quiet Moth Artz helps artists, entrepreneurs, small businesses, and brands with websites, graphic design, songwriting, hooks, creative consulting, and automated creative systems.",
+    "url": "https://quietmothartz.org"
+  },
+  "site": {
+    "name": "Quiet Moth Artz",
+    "brandMark": "Q",
+    "tagline": "Creative Consultant",
+    "email": "quietmothartz@gmail.com",
+    "socialLinks": [
+      {
+        "label": "SquadUp Records",
+        "url": "https://squaduprecords.com"
+      }
+    ]
+  },
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "#home"
+    },
+    {
+      "label": "Services",
+      "href": "#services"
+    },
+    {
+      "label": "Portfolio",
+      "href": "#portfolio"
+    },
+    {
+      "label": "Hook Generator",
+      "href": "#hook-generator"
+    },
+    {
+      "label": "Packages",
+      "href": "#packages"
+    },
+    {
+      "label": "Hire Me",
+      "href": "#hire-me"
+    }
+  ],
+  "hero": {
+    "headline": "Creative websites, graphics, hooks, and brand systems for artists, entrepreneurs, and small businesses.",
+    "subheadline": "Quiet Moth Artz helps creators and brands look professional, promote better, and turn ideas into polished digital experiences — from websites and flyers to songwriting and creative consulting.",
+    "buttons": [
+      {
+        "label": "Hire Me",
+        "href": "#hire-me",
+        "style": "primary"
+      },
+      {
+        "label": "View Services",
+        "href": "#services",
+        "style": "secondary"
+      },
+      {
+        "label": "Try the Hook Generator",
+        "href": "#hook-generator",
+        "style": "ghost"
+      }
+    ],
+    "visualLabels": ["Websites", "Graphics", "Hooks", "Systems"]
+  },
+  "services": {
+    "title": "Services",
+    "intro": "Practical creative support for the pieces that help a business, artist, or idea look finished and ready.",
+    "cards": [
+      {
+        "title": "Website Design",
+        "description": "Professional websites for artists, small businesses, creatives, service brands, and independent companies."
+      },
+      {
+        "title": "Graphic Design",
+        "description": "Flyers, posters, cover art, business graphics, promo designs, and branded visuals."
+      },
+      {
+        "title": "Songwriting & Hooks",
+        "description": "Custom hooks, song concepts, verses, slogans, and creative writing support."
+      },
+      {
+        "title": "Creative Consulting",
+        "description": "Idea development, brand direction, project planning, and creative strategy."
+      },
+      {
+        "title": "Brand Identity",
+        "description": "Logo direction, colors, layout style, messaging, and visual consistency."
+      },
+      {
+        "title": "Automated Creative Systems",
+        "description": "Modern automated workflows that help creators produce content, designs, websites, and ideas faster."
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio / Featured Work",
+    "intro": "A clean starting gallery for current projects, creative services, and examples that can be replaced with final images later.",
+    "placeholderText": "Ready for image replacement",
+    "cards": [
+      {
+        "title": "Quiet Moth Artz Website",
+        "description": "A polished home base for creative consulting, design, music, and digital systems.",
+        "label": "Website build",
+        "image": ""
+      },
+      {
+        "title": "AI Hook Generator",
+        "description": "A free creative prompt tool for songs, campaigns, slogans, and brand ideas.",
+        "label": "Interactive tool",
+        "image": ""
+      },
+      {
+        "title": "Flyer & Poster Designs",
+        "description": "Promo visuals for artists, events, releases, brands, and community campaigns.",
+        "label": "Design work",
+        "image": ""
+      },
+      {
+        "title": "Search for the Iron Mic Game Branding",
+        "description": "Visual direction and game identity work for a music-driven creative project.",
+        "label": "Game brand",
+        "image": ""
+      },
+      {
+        "title": "Songwriting / Music Concepts",
+        "description": "Hooks, concepts, verses, and creative writing built around a clear emotion or message.",
+        "label": "Writing",
+        "image": ""
+      },
+      {
+        "title": "SquadUp Records",
+        "description": "Creative support connected to music, artist promotion, and independent brand presence.",
+        "label": "Music brand",
+        "image": ""
+      }
+    ]
+  },
+  "hookGenerator": {
+    "title": "Free AI Hook Generator",
+    "promoCopy": "Need a hook for a song, campaign, slogan, or creative idea? Try my free hook generator, then book Quiet Moth Artz if you want help turning the idea into a finished song, brand, flyer, or website.",
+    "ctaCopy": "Want me to write the full hook, song concept, or brand slogan for you? Book a creative session.",
+    "inputLabel": "Topic, artist name, brand name, song idea, or phrase",
+    "inputPlaceholder": "Example: new beginning, SquadUp Records, summer single",
+    "styleLabel": "Style / mood",
+    "generateButton": "Generate Hook",
+    "copyButton": "Copy Hook",
+    "copiedButton": "Hook Copied",
+    "againButton": "Generate Again"
+  },
+  "packages": {
+    "title": "Website Packages",
+    "intro": "Clear starting points for getting online without paying for unnecessary complexity.",
+    "note": "Now accepting 3 intro website clients.",
+    "cards": [
+      {
+        "title": "Starter Website",
+        "description": "Best for artists, creators, and small businesses who need a clean online presence.",
+        "includes": ["One-page website", "Mobile-friendly layout", "Contact form", "Social links", "Basic SEO setup"],
+        "price": "Intro pricing available"
+      },
+      {
+        "title": "Professional Website",
+        "description": "Best for businesses and brands that need a stronger online presentation.",
+        "includes": ["Up to 5 pages", "Service sections", "Portfolio/gallery", "Contact form", "Basic SEO", "Mobile design"],
+        "price": "Contact for quote"
+      },
+      {
+        "title": "Creative Brand Website",
+        "description": "Best for people who need the full look and creative direction.",
+        "includes": ["Website", "Graphic direction", "Brand visuals", "Copywriting support", "Launch graphics"],
+        "price": "Contact for quote"
+      }
+    ]
+  },
+  "whyWorkWithMe": {
+    "title": "Why Work With Me",
+    "paragraph": "Quiet Moth Artz brings design, writing, music, and systems together so your project feels complete from the first impression to the final call to action.",
+    "checklist": [
+      "Creative direction, not just basic design",
+      "Experience with graphics, music, writing, and digital projects",
+      "Professional websites built to promote real services",
+      "Clear communication and organized delivery",
+      "Modern automated workflows that save time"
+    ]
+  },
+  "contact": {
+    "title": "Hire Me / Contact",
+    "copy": "Tell me what you need, and your email app will open with a polished project request ready to send.",
+    "emailButton": "Email Quiet Moth Artz",
+    "submitButton": "Start My Project",
+    "detailsPlaceholder": "Tell me about the website, graphic, hook, brand, or creative system you need.",
+    "needOptions": ["Website", "Graphic Design", "Songwriting / Hook", "Creative Consulting", "Brand Package", "Other"],
+    "budgetOptions": ["Under $300", "$300-$750", "$750-$1,500", "$1,500+", "Not sure yet"],
+    "timelineOptions": ["ASAP", "This week", "This month", "Flexible"]
+  },
+  "footer": {
+    "description": "Creative consulting, websites, graphics, songwriting, hooks, and automated creative systems.",
+    "copyright": "© 2026 Quiet Moth Artz / Meloetry Da MC. All rights reserved."
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+*.log
+desktop-screenshot*.png
+mobile-screenshot*.png
+mobile-*-final.png
