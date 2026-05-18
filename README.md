@@ -109,70 +109,95 @@ That Netlify popup is expected to fail on this Cloudflare Pages site. Do not add
 
 Follow these steps once, then the `/admin` login can use your Cloudflare Worker instead of Netlify.
 
+I prepared the official authenticator locally here:
+
+```text
+C:\Users\meloe\OneDrive\Documents\New project\sveltia-cms-auth-worker
+```
+
+The Worker bundle has been dry-run validated with:
+
+```bash
+npx wrangler deploy --dry-run
+```
+
 1. Open the official Sveltia CMS Authenticator repo:
    https://github.com/sveltia/sveltia-cms-auth
 
-2. Deploy it to Cloudflare Workers.
-   Use the repo's Deploy to Cloudflare Workers button, or clone the repo and run:
+2. Log into Cloudflare Wrangler on this machine:
 
    ```bash
-   wrangler deploy
+   npx wrangler login
    ```
 
-3. After deployment, copy the Worker URL from Cloudflare.
+3. Deploy the prepared local Worker:
+
+   ```bash
+   cd "C:\Users\meloe\OneDrive\Documents\New project\sveltia-cms-auth-worker"
+   npx wrangler deploy
+   ```
+
+   You can also use the repo's Deploy to Cloudflare Workers button instead.
+
+4. After deployment, copy the Worker URL from Cloudflare.
    It will look like:
 
    ```text
-   https://YOUR-SVELTIA-AUTH-WORKER.workers.dev
+   https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev
    ```
 
-4. Register a new GitHub OAuth App:
+5. Register a new GitHub OAuth App:
    https://github.com/settings/applications/new
 
-5. Use these GitHub OAuth App values:
+6. Use these GitHub OAuth App values:
 
    - Application name: `Quiet Moth Artz CMS Auth`
-   - Homepage URL: your Worker URL, for example `https://YOUR-SVELTIA-AUTH-WORKER.workers.dev`
-   - Authorization callback URL: your Worker URL plus `/callback`, for example `https://YOUR-SVELTIA-AUTH-WORKER.workers.dev/callback`
+   - Homepage URL: your Worker URL, for example `https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev`
+   - Authorization callback URL: your Worker URL plus `/callback`, for example `https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev/callback`
 
-6. After creating the GitHub OAuth App, copy:
+7. After creating the GitHub OAuth App, copy:
 
    - Client ID
    - Client Secret
 
-7. In Cloudflare, open the deployed Worker.
+8. Set the required Worker environment variables.
 
-8. Go to Settings, then Variables.
+   You can use the Cloudflare dashboard, or run these commands from the Worker folder:
 
-9. Add these Worker environment variables:
+   ```bash
+   npx wrangler secret put GITHUB_CLIENT_ID
+   npx wrangler secret put GITHUB_CLIENT_SECRET
+   ```
 
-   - `GITHUB_CLIENT_ID`: the GitHub OAuth App Client ID
-   - `GITHUB_CLIENT_SECRET`: the GitHub OAuth App Client Secret
-   - `ALLOWED_DOMAINS`: `quiet-moth-artz-site.pages.dev, quietmothartz.org`
+   Then add `ALLOWED_DOMAINS` in Cloudflare Worker Settings > Variables:
 
-10. Save the variables and redeploy the Worker if Cloudflare asks you to.
+   ```text
+   quiet-moth-artz-site.pages.dev,quietmothartz.org
+   ```
 
-11. Update `public/admin/config.yml` by adding your real Worker URL under `backend`:
+9. Save the variables and redeploy the Worker if Cloudflare asks you to.
+
+10. Update `public/admin/config.yml` by adding your real Worker URL under `backend`:
 
    ```yaml
    backend:
      name: github
      repo: quietmothartz-dev/quiet-moth-artz-site
      branch: main
-     base_url: https://YOUR-SVELTIA-AUTH-WORKER.workers.dev
+     base_url: https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev
    ```
 
-12. Commit and push that config change to GitHub.
+11. Commit and push that config change to GitHub.
 
-13. Wait for Cloudflare Pages to redeploy the site.
+12. Wait for Cloudflare Pages to redeploy the site.
 
-14. Open:
+13. Open:
 
    ```text
    https://quiet-moth-artz-site.pages.dev/admin/
    ```
 
-15. Sign in with GitHub.
+14. Sign in with GitHub.
 
 The CMS should now authenticate through your Cloudflare Worker instead of Netlify.
 
