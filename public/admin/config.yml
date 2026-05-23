@@ -103,20 +103,52 @@ collections:
                   - { label: Project Label, name: label, widget: string }
                   - { label: Project Image, name: image, widget: image, required: false }
 
-          - label: Hook Generator
-            name: hookGenerator
+          - label: Hook Lab Promo
+            name: hookLabPromo
             widget: object
             fields:
-              - { label: Section Title, name: title, widget: string }
-              - { label: Promo Copy, name: promoCopy, widget: text }
-              - { label: CTA Copy, name: ctaCopy, widget: text }
-              - { label: Input Label, name: inputLabel, widget: string }
-              - { label: Input Placeholder, name: inputPlaceholder, widget: string }
-              - { label: Style Dropdown Label, name: styleLabel, widget: string }
-              - { label: Generate Button Text, name: generateButton, widget: string }
-              - { label: Copy Button Text, name: copyButton, widget: string }
-              - { label: Copied Button Text, name: copiedButton, widget: string }
-              - { label: Generate Again Button Text, name: againButton, widget: string }
+              - { label: Promo Title, name: title, widget: string }
+              - { label: Promo Text, name: text, widget: text }
+              - label: Feature Tags
+                name: tags
+                widget: list
+                field: { label: Tag, name: tag, widget: string }
+              - { label: QR Title, name: qrTitle, widget: string }
+              - { label: QR Text, name: qrText, widget: text }
+              - { label: Browser Link Text, name: browserLink, widget: string }
+              - { label: Hook Lab URL, name: url, widget: string }
+              - { label: QR Image, name: qrImage, widget: image }
+
+          - label: Blog
+            name: blog
+            widget: object
+            fields:
+              - { label: SEO Title, name: seoTitle, widget: string }
+              - { label: SEO Description, name: seoDescription, widget: text }
+              - { label: Hero Headline, name: headline, widget: text }
+              - { label: Hero Subtitle, name: subtitle, widget: text }
+              - label: Categories
+                name: categories
+                widget: list
+                field: { label: Category, name: category, widget: string }
+              - label: Featured Post
+                name: featured
+                widget: object
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Category, name: category, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: CTA, name: cta, widget: string }
+                  - { label: Link, name: href, widget: string }
+              - label: Starter Blog Cards
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Category, name: category, widget: string }
+                  - { label: Excerpt, name: excerpt, widget: text }
+                  - { label: Read Time, name: readTime, widget: string }
 
           - label: Website Packages
             name: packages

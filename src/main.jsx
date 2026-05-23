@@ -1,72 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import content from './content/siteContent.json';
 import './styles.css';
-
-const hookStyles = {
-  'Street anthem': [
-    'They know the name, they feel the wave, {topic} got the whole block moving',
-    'From the ground to the lights, {topic} keep the city in tune',
-    'Say it loud when the beat drops, {topic} never came here to lose',
-  ],
-  'R&B': [
-    '{topic} on my mind when the lights go low',
-    'Soft words, real touch, {topic} got a rhythm I know',
-    'I keep replaying {topic}, like a melody pulling me close',
-  ],
-  Motivational: [
-    'Built from the pressure, {topic} shining through the climb',
-    'Step by step, no fear, {topic} right on time',
-    'Turn the dream into proof, let {topic} rise',
-  ],
-  Club: [
-    'Lights up, hands high, {topic} in the room tonight',
-    'Move with the bass, let {topic} take control',
-    'Whole floor locked in when {topic} hits the speakers',
-  ],
-  'Pain / emotional': [
-    'I smile through the storm, but {topic} still lives under my skin',
-    'Every scar got a sound, and {topic} keeps singing again',
-    'I lost a little light, but {topic} taught me how to glow',
-  ],
-  'Brand slogan': [
-    '{topic}: built to be seen, remembered, and trusted',
-    'Make it clear. Make it polished. Make it {topic}.',
-    '{topic} turns the idea into a brand people believe',
-  ],
-  'Gospel/inspirational clean': [
-    'Grace on the path, {topic} in the plan',
-    'Faith in my heart, {topic} in His hands',
-    'When the road gets heavy, {topic} lifts me higher',
-  ],
-  'Business promo': [
-    '{topic} helps your brand look ready for the next level',
-    'Bring the vision, build the presence, let {topic} do the work',
-    'Clean design, clear message, {topic} made to promote',
-  ],
-};
-
-const openings = ['Hook idea', 'Chorus starter', 'Campaign line', 'Creative spark'];
-const closers = [
-  'Keep it catchy, repeatable, and easy to remember.',
-  'Use this as the main line, then build the verse around the feeling.',
-  'Try saying it over a slow beat and then over a faster bounce.',
-  'This can become a song hook, ad line, flyer headline, or brand slogan.',
-];
-
-function pick(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-function makeHooks(topic, style) {
-  const cleanTopic = topic.trim() || 'your idea';
-  const templates = hookStyles[style] || hookStyles['Street anthem'];
-
-  return Array.from({ length: 3 }, (_, index) => {
-    const line = pick(templates).replaceAll('{topic}', cleanTopic);
-    return `${pick(openings)} ${index + 1}: ${line}. ${pick(closers)}`;
-  });
-}
 
 function updateMetaContent(selector, value) {
   const tag = document.querySelector(selector);
@@ -76,7 +11,7 @@ function updateMetaContent(selector, value) {
 function Header() {
   return (
     <header className="site-header">
-      <a className="brand" href="#home" aria-label={`${content.site.name} home`}>
+      <a className="brand" href="/" aria-label={`${content.site.name} home`}>
         <span className="brand-mark">{content.site.brandMark}</span>
         <span>
           {content.site.name}
@@ -85,7 +20,12 @@ function Header() {
       </a>
       <nav aria-label="Main navigation">
         {content.navigation.map(({ label, href }) => (
-          <a key={href} href={href}>
+          <a
+            key={href}
+            href={href}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          >
             {label}
           </a>
         ))}
@@ -133,6 +73,10 @@ function SectionIntro({ title, children, light = false }) {
   );
 }
 
+function serviceLinkForTitle(title) {
+  return content.servicesPage.categories.find((service) => service.title === title)?.id || title.toLowerCase().replaceAll(' ', '-');
+}
+
 function Services() {
   return (
     <section className="section light-section" id="services">
@@ -145,9 +89,17 @@ function Services() {
             <span className="card-number">{String(index + 1).padStart(2, '0')}</span>
             <h3>{service.title}</h3>
             <p>{service.description}</p>
+            <a className="text-link" href={`/services.html#${serviceLinkForTitle(service.title)}`}>
+              View service
+            </a>
           </article>
         ))}
       </div>
+      <p className="intro-note">
+        <a className="button secondary" href="/services.html">
+          View All Services
+        </a>
+      </p>
     </section>
   );
 }
@@ -176,64 +128,229 @@ function Portfolio() {
   );
 }
 
-function HookGenerator() {
-  const [topic, setTopic] = useState('');
-  const [style, setStyle] = useState('Street anthem');
-  const [hooks, setHooks] = useState(() => makeHooks(content.site.name, 'Brand slogan'));
-  const [copied, setCopied] = useState(false);
-
-  const combinedHooks = useMemo(() => hooks.join('\n\n'), [hooks]);
-
-  function generateHook() {
-    setHooks(makeHooks(topic, style));
-    setCopied(false);
-  }
-
-  async function copyHook() {
-    await navigator.clipboard.writeText(combinedHooks);
-    setCopied(true);
-  }
-
+function HookLabPromo() {
   return (
-    <section className="section tool-section" id="hook-generator">
-      <div className="tool-copy">
-        <SectionIntro title={content.hookGenerator.title} light>
-          {content.hookGenerator.promoCopy}
-        </SectionIntro>
-        <p className="tool-cta">{content.hookGenerator.ctaCopy}</p>
-      </div>
-      <div className="generator-card">
-        <label htmlFor="hook-topic">{content.hookGenerator.inputLabel}</label>
-        <input
-          id="hook-topic"
-          value={topic}
-          onChange={(event) => setTopic(event.target.value)}
-          placeholder={content.hookGenerator.inputPlaceholder}
-        />
-        <label htmlFor="hook-style">{content.hookGenerator.styleLabel}</label>
-        <select id="hook-style" value={style} onChange={(event) => setStyle(event.target.value)}>
-          {Object.keys(hookStyles).map((option) => (
-            <option key={option}>{option}</option>
+    <section className="section hook-promo-section" id="hook-lab">
+      <div className="hook-promo-copy">
+        <span className="eyebrow">Free Creative Tool</span>
+        <h2>{content.hookLabPromo.title}</h2>
+        <p>{content.hookLabPromo.text}</p>
+        <div className="tag-strip">
+          {content.hookLabPromo.tags.map((tag) => (
+            <span key={tag}>{tag}</span>
           ))}
-        </select>
-        <div className="generator-actions">
-          <button className="button primary" type="button" onClick={generateHook}>
-            {content.hookGenerator.generateButton}
-          </button>
-          <button className="button secondary" type="button" onClick={copyHook}>
-            {copied ? content.hookGenerator.copiedButton : content.hookGenerator.copyButton}
-          </button>
-          <button className="button ghost dark-ghost" type="button" onClick={generateHook}>
-            {content.hookGenerator.againButton}
-          </button>
         </div>
-        <output className="hook-output" aria-live="polite">
-          {hooks.map((hook) => (
-            <span key={hook}>{hook}</span>
-          ))}
-        </output>
+      </div>
+      <div className="qr-card">
+        <span className="eyebrow">{content.hookLabPromo.qrTitle}</span>
+        <div className="qr-frame">
+          <img src={content.hookLabPromo.qrImage} alt="QR code for the Quiet Moth Hook Lab app" />
+        </div>
+        <p>{content.hookLabPromo.qrText}</p>
+        <p className="install-lines">
+          <strong>iPhone:</strong> Safari - Share - Add to Home Screen
+          <br />
+          <strong>Android:</strong> Chrome - Install App or Add to Home Screen
+        </p>
+        <a className="text-link" href={content.hookLabPromo.url} target="_blank" rel="noopener noreferrer">
+          {content.hookLabPromo.browserLink}
+        </a>
       </div>
     </section>
+  );
+}
+
+function ServicesPage() {
+  useEffect(() => {
+    document.title = content.servicesPage.seoTitle;
+    updateMetaContent('meta[name="description"]', content.servicesPage.seoDescription);
+    updateMetaContent('meta[property="og:title"]', content.servicesPage.seoTitle);
+    updateMetaContent('meta[property="og:description"]', content.servicesPage.seoDescription);
+    updateMetaContent('meta[property="og:url"]', `${content.seo.url}/services.html`);
+
+    if (window.location.hash) {
+      requestAnimationFrame(() => {
+        document.querySelector(window.location.hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main>
+        <section className="section dark-section page-hero">
+          <div>
+            <span className="eyebrow">Creative Services</span>
+            <h1>{content.servicesPage.headline}</h1>
+            <p>{content.servicesPage.subtitle}</p>
+            <div className="button-row">
+              <a className="button primary" href="/contact.html">
+                Start My Project
+              </a>
+              <a className="button ghost" href="/work.html">
+                View Work
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="section dark-section services-page-section">
+          <SectionIntro title="Service Categories">{content.servicesPage.categoriesIntro}</SectionIntro>
+          <div className="service-panel-grid">
+            {content.servicesPage.categories.map((service, index) => (
+              <article className="service-panel" id={service.id} key={service.id}>
+                <span className="card-number">{String(index + 1).padStart(2, '0')}</span>
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+                <p>
+                  <strong>Best for:</strong> {service.bestFor}
+                </p>
+                <ul>
+                  {service.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <a className="button primary" href="/contact.html">
+                  Start This Project
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="section light-section outcome-section">
+          <SectionIntro title="Find the Right Starting Point" light>
+            Not sure what service you need? Start with the result you want.
+          </SectionIntro>
+          <div className="outcome-grid">
+            {content.servicesPage.outcomes.map((outcome) => (
+              <a className="outcome-card" href={outcome.href} key={outcome.question}>
+                <span>{outcome.question}</span>
+                <strong>{outcome.answer}</strong>
+              </a>
+            ))}
+          </div>
+        </section>
+        <section className="section dark-section">
+          <SectionIntro title="Project Starting Points">Choose a focused starting lane and we can shape the details from there.</SectionIntro>
+          <div className="package-grid">
+            {content.servicesPage.startingPoints.map((project) => (
+              <article className="package-card dark-package-card" key={project.title}>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <a className="text-link" href="/contact.html">
+                  Start This Project
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="section split-section dark-section">
+          <div>
+            <SectionIntro title="How It Works">A simple process for turning the rough idea into polished creative work.</SectionIntro>
+          </div>
+          <div className="process-grid">
+            {content.servicesPage.process.map((step, index) => (
+              <article className="process-card" key={step}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{step}</h3>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="section final-cta-section">
+          <div className="final-cta-card">
+            <span className="eyebrow">Ready?</span>
+            <h2>Ready to make your idea look official?</h2>
+            <p>
+              Whether you need a website, logo, flyer, apparel concept, hook, or creative direction, Quiet Moth Artz can help shape it into something polished and ready to share.
+            </p>
+            <a className="button primary" href="/contact.html">Start My Project</a>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function BlogPage() {
+  useEffect(() => {
+    document.title = content.blog.seoTitle;
+    updateMetaContent('meta[name="description"]', content.blog.seoDescription);
+    updateMetaContent('meta[property="og:title"]', content.blog.seoTitle);
+    updateMetaContent('meta[property="og:description"]', content.blog.seoDescription);
+    updateMetaContent('meta[property="og:url"]', `${content.seo.url}/blog.html`);
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main>
+        <section className="section dark-section page-hero blog-page-hero">
+          <div>
+            <span className="eyebrow">Creative Notes</span>
+            <h1>{content.blog.headline}</h1>
+            <p>{content.blog.subtitle}</p>
+            <div className="button-row">
+              <a className="button primary" href="/contact.html">
+                Start My Project
+              </a>
+              <a className="button ghost" href="/services.html">
+                View Services
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="section dark-section featured-note-section">
+          <article className="featured-note-card">
+            <div>
+              <span className="eyebrow">Featured Note</span>
+              <h2>{content.blog.featured.title}</h2>
+              <p>{content.blog.featured.text}</p>
+            </div>
+            <a className="button primary" href={content.blog.featured.href} target="_blank" rel="noopener noreferrer">
+              {content.blog.featured.cta}
+            </a>
+          </article>
+        </section>
+
+        <section className="section dark-section blog-list-section">
+          <div className="blog-category-strip" aria-label="Blog categories">
+            {content.blog.categories.map((category) => (
+              <span key={category}>{category}</span>
+            ))}
+          </div>
+          <div className="blog-card-grid">
+            {content.blog.cards.map((post) => (
+              <article className="note-card" key={post.title}>
+                <span className="blog-category-label">{post.category}</span>
+                <h2>{post.title}</h2>
+                <p>{post.excerpt}</p>
+                <div className="note-card-footer">
+                  <span>{post.readTime}</span>
+                  <span className="coming-soon-link">Read Note - Coming Soon</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section final-cta-section">
+          <div className="final-cta-card">
+            <span className="eyebrow">Next Project</span>
+            <h2>Need help shaping your next creative project?</h2>
+            <p>
+              Whether you need a website, flyer, logo, hook, or brand direction, Quiet Moth Artz can help turn the idea into something polished and ready to share.
+            </p>
+            <a className="button primary" href="/contact.html">
+              Start My Project
+            </a>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
 
@@ -253,7 +370,7 @@ function Packages() {
                 <li key={feature}>{feature}</li>
               ))}
             </ul>
-            <strong>{item.price}</strong>
+            <a className="text-link" href="/contact.html">{item.price}</a>
           </article>
         ))}
       </div>
@@ -364,6 +481,72 @@ function Contact() {
   );
 }
 
+function AboutPage() {
+  useEffect(() => {
+    document.title = content.about.seoTitle;
+    updateMetaContent('meta[name="description"]', content.about.seoDescription);
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main>
+        <section className="section dark-section page-hero">
+          <div>
+            <span className="eyebrow">About</span>
+            <h1>{content.about.headline}</h1>
+            <p>{content.about.copy}</p>
+          </div>
+        </section>
+        <WhyWorkWithMe />
+        <HookLabPromo />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function WorkPage() {
+  useEffect(() => {
+    document.title = "Work | Quiet Moth Artz";
+    updateMetaContent('meta[name="description"]', "Selected Quiet Moth Artz work and portfolio preview.");
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main>
+        <section className="section dark-section page-hero">
+          <div>
+            <span className="eyebrow">Selected Work</span>
+            <h1>Visuals, websites, hooks, and brand direction.</h1>
+            <p>{content.portfolio.intro}</p>
+          </div>
+        </section>
+        <Portfolio />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function ContactPage() {
+  useEffect(() => {
+    document.title = "Start a Project | Quiet Moth Artz";
+    updateMetaContent('meta[name="description"]', "Start a Quiet Moth Artz project for websites, visuals, hooks, brand direction, and creative consulting.");
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main>
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
 function Footer() {
   return (
     <footer className="footer">
@@ -385,13 +568,42 @@ function Footer() {
 }
 
 function App() {
+  const [path, setPath] = useState(window.location.pathname);
+
   useEffect(() => {
     document.title = content.seo.title;
     updateMetaContent('meta[name="description"]', content.seo.description);
     updateMetaContent('meta[property="og:title"]', content.seo.title);
     updateMetaContent('meta[property="og:description"]', content.seo.description);
     updateMetaContent('meta[property="og:url"]', content.seo.url);
+
+    function handlePopState() {
+      setPath(window.location.pathname);
+    }
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  if (path === '/services.html' || path === '/services') {
+    return <ServicesPage />;
+  }
+
+  if (path === '/about.html' || path === '/about') {
+    return <AboutPage />;
+  }
+
+  if (path === '/work.html' || path === '/work') {
+    return <WorkPage />;
+  }
+
+  if (path === '/blog.html' || path === '/blog') {
+    return <BlogPage />;
+  }
+
+  if (path === '/contact.html' || path === '/contact') {
+    return <ContactPage />;
+  }
 
   return (
     <>
@@ -400,7 +612,7 @@ function App() {
         <Hero />
         <Services />
         <Portfolio />
-        <HookGenerator />
+        <HookLabPromo />
         <Packages />
         <WhyWorkWithMe />
         <Contact />
